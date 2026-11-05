@@ -24,3 +24,9 @@ npx wrangler deploy
 1. Sube este repo a GitLab.
 2. Settings > CI/CD > Variables: crea `CLOUDFLARE_API_TOKEN` (Masked) y `CLOUDFLARE_ACCOUNT_ID`.
 3. Cada push a la rama principal ejecuta el job `deploy_cloudflare` (`.gitlab-ci.yml`).
+
+## Verificación
+Tras el despliegue, prueba el endpoint:
+```bash
+curl https://hono-api.<tu-subdominio>.workers.dev/api/hello
+```
