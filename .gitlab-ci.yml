@@ -1,0 +1,23 @@
+# Variables requeridas en GitLab (Settings > CI/CD > Variables, marcadas Masked):
+#   CLOUDFLARE_API_TOKEN  -> API Token de Cloudflare (plantilla "Edit Cloudflare Workers")
+#   CLOUDFLARE_ACCOUNT_ID -> Account ID de Cloudflare
+# Wrangler lee ambas variables de entorno automáticamente: no hay usuario/contraseña.
+
+image: node:22
+
+stages:
+  - deploy
+
+deploy_cloudflare:
+  stage: deploy
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+  script:
+    - npm ci
+    - npx wrangler deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
